@@ -20,11 +20,9 @@
     - model_cnn_gru.h5 : Modèle CNN-GRU sauvegardé après entraînement.  
     - prometheus.yml : Configuration de Prometheus pour surveiller les métriques.  
     - requirments.txt : Liste des dépendances nécessaires au projet.  
-    - sales_cnn_gru_model.h5 : Modèle alternatif pour les séries temporelles.  
-    - sales_forecasting_model.h5 : Modèle de prévision des ventes.  
-    - sales_forecasting_model_version.h5 : Version spécifique du modèle de prévision.  
+    - sales_forecasting_model_v3.h5 : Modèle de prévision des ventes. 
   * Dossiers  
     - templates/ : Contient les fichiers HTML.  
     - index.html : Interface utilisateur pour interagir avec l'API.  
     - static/ : Contient les fichiers CSS.  
-    style.css : Feuille de style pour l'interface utilisateur.  
+    - style.css : Feuille de style pour l'interface utilisateur.  
