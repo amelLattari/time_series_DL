@@ -1,22 +1,29 @@
-# time_series_DL
-Etudiante:  
+#Time Series Deep Learning Project
+##Étudiantes :  
+
   Amel Lattari  
   Amina Tadjin  
-  Nour Ikhelef
+  Nour Ikhelef  
+##Description du Projet  
 
-Dans le dosier de la racine:  
-app.py  
-Dockerfile  
-alert_rules.yml 
-deployment.yaml  
-docker-compose.yml  
-longstash.config  
-model_cnn_gru.h5  
-prometheus.yml  
-Rapport   
-requirments.txt   
-sales_cnn_gru_model.h5  
-sales_forecasting_model.h5   
-sales_forecasting_model_version.h5   
-Dans le dossier templates :  index.html   
-Dans le dossier Static :  style.css
+Ce projet vise à construire et déployer un modèle de prévision basé sur des séries temporelles en utilisant une architecture combinée CNN-GRU. Le pipeline couvre toutes les étapes, de la construction du modèle à son déploiement avec des outils MLOps.
+
+##Structure du Projet  
+  Fichiers Racine
+    app.py : Script principal contenant l'API Flask pour servir le modèle.  
+    Dockerfile : Fichier pour containeriser l'application avec Docker.  
+    alert_rules.yml : Règles de monitoring pour Prometheus.  
+    deployment.yaml : Fichier de configuration Kubernetes pour déployer l'API et le service.  
+    docker-compose.yml : Configuration pour orchestrer la stack ELK (Elasticsearch, Logstash, Kibana).  
+    logstash.conf : Configuration de Logstash pour centraliser les logs.  
+    model_cnn_gru.h5 : Modèle CNN-GRU sauvegardé après entraînement.  
+    prometheus.yml : Configuration de Prometheus pour surveiller les métriques.  
+    requirments.txt : Liste des dépendances nécessaires au projet.  
+    sales_cnn_gru_model.h5 : Modèle alternatif pour les séries temporelles.  
+    sales_forecasting_model.h5 : Modèle de prévision des ventes.  
+    sales_forecasting_model_version.h5 : Version spécifique du modèle de prévision.  
+  Dossiers  
+    templates/ : Contient les fichiers HTML.  
+    index.html : Interface utilisateur pour interagir avec l'API.  
+    static/ : Contient les fichiers CSS.  
+    style.css : Feuille de style pour l'interface utilisateur.  
