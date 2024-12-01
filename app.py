@@ -13,7 +13,7 @@ import socket
 from logging.handlers import SocketHandler
 
 # Load the model
-model = tf.keras.models.load_model('model_cnn_gru.h5', custom_objects={'mse': MeanSquaredError()})
+model = tf.keras.models.load_model('sales_forecasting_model_v3.h5', custom_objects={'mse': MeanSquaredError()})
 
 # Configure logging
 logger = logging.getLogger()
@@ -63,44 +63,50 @@ def predict():
         sales_data_str = request.form['sales_data']
         sales_data = np.array([float(x) for x in sales_data_str.split(',')])
 
-        # Dynamically calculate min_val and max_val from input data
+        # Vérifiez que les données d'entrée contiennent exactement 12 valeurs
+        if len(sales_data) != 12:
+            return jsonify({'error': 'Les données d\'entrée doivent contenir exactement 12 valeurs'}), 400
+
+        # Calculer min et max dynamiques pour les ventes
         min_val = sales_data.min()
         max_val = sales_data.max()
 
-        # Normalization logic
-        def normalize_data(data, min_val, max_val):
-            """Normalize data to a range [0, 1]."""
-            return (data - min_val) / (max_val - min_val)
+        # Ajouter une deuxième caractéristique : les mois [1, 2, ..., 12]
+        input_months = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12])
+        month_min, month_max = input_months.min(), input_months.max()
 
-        def denormalize_data(data, min_val, max_val):
-            """Denormalize data from range [0, 1] to original scale."""
-            return data * (max_val - min_val) + min_val
+        # Normalisation des ventes
+        normalized_sales_data = (sales_data - min_val) / (max_val - min_val)
 
-        # Normalize input data
-        normalized_sales_data = normalize_data(sales_data, min_val, max_val)
+        # Normalisation des mois
+        normalized_months = (input_months - month_min) / (month_max - month_min)
 
-        # Prepare normalized data for the model
-        input_data = normalized_sales_data.reshape(1, normalized_sales_data.shape[0], 1)
-        predictions_normalized = model.predict(input_data).flatten()
+        # Combiner les caractéristiques (ventes + mois) pour créer l'entrée
+        input_features = np.stack((normalized_sales_data, normalized_months), axis=-1).reshape(1, 12, 2)
 
-        # Denormalize predictions to original scale
-        predictions = denormalize_data(predictions_normalized, min_val, max_val)
+        # Prédiction
+        predictions_normalized = model.predict(input_features).flatten()
 
-        # Generate graph
+        # Dénormalisation des prédictions
+        predictions = predictions_normalized * (max_val - min_val) + min_val
+
+        # Générer le graphe
         graph_img = create_graph(sales_data, predictions)
 
         # Log event
         logger.info(json.dumps({"event": "prediction", "data": sales_data_str}))
 
+        # Mettre à jour les métriques Prometheus
         accuracy = 0.95
         loss = 0.05
         accuracy_gauge.set(accuracy)
         loss_gauge.set(loss)
 
-        # Return the page with predictions and graph
+        # Retourner la page avec prédiction et graphe
         return render_template('index.html', prediction=predictions.tolist(), graph_img=graph_img)
     except Exception as e:
         return jsonify({'error': str(e)}), 400
+
 
 
 if __name__ == '__main__':
