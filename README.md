@@ -17,10 +17,9 @@
     - deployment.yaml : Fichier de configuration Kubernetes pour déployer l'API et le service.  
     - docker-compose.yml : Configuration pour orchestrer la stack ELK (Elasticsearch, Logstash, Kibana).  
     - logstash.conf : Configuration de Logstash pour centraliser les logs.  
-    - model_cnn_gru.h5 : Modèle CNN-GRU sauvegardé après entraînement.  
     - prometheus.yml : Configuration de Prometheus pour surveiller les métriques.  
     - requirments.txt : Liste des dépendances nécessaires au projet.  
-    - sales_forecasting_model_v3.h5 : Modèle de prévision des ventes. 
+    - sales_forecasting_model_v3.h5 : Modèle de prévision des ventes sauvegardé après entraînement. 
   * Dossiers  
     - templates/ : Contient les fichiers HTML.  
     - index.html : Interface utilisateur pour interagir avec l'API.  
