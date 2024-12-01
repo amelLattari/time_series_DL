@@ -48,7 +48,7 @@ Endpoints Déployés :
 -Fonctionnement
 Entrée : Les données de vente (12 mois) sont envoyées en POST via formulaire.
 Processus :
-Les données sont normalisées qui correspondent aux scalers utilisés pendant l'entraînement.
+Les données sont normalisées avec des fonctions qui correspondent aux scalers utilisés pendant l'entraînement.
 Le modèle effectue une prédiction basée sur les données fournies.
 La prédiction est dénormalisée pour revenir à l'échelle d'origine.
 Les résultats sont intégrés à une interface utilisateur.
