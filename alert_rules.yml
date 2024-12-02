@@ -6,7 +6,7 @@ groups:
         expr: model_loss > 0.5
         for: 5m  # L'alerte se déclenche après 5 minutes de dépassement
         annotations:
-          summary: "La perte a dépassé le seuil de 0.1"
+          summary: "La perte a dépassé le seuil de 0.5"
           description: "La perte du modèle est trop élevée pendant plus de 5 minutes."
 
       # Règle pour alerter si la précision (accuracy) tombe en dessous d'un certain seuil
